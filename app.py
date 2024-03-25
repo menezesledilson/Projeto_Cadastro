@@ -8,14 +8,17 @@ app.secret_key = "admin123"
 def index():
     return render_template("index.html", users=usuarios)
 
-
 @app.route("/add_user", methods=["POST", "GET"])
 def add_user():
     if request.method == "POST":
         nome = request.form["nome"]
         idade = int(request.form["idade"])
+        rua = request.form["rua"]
         cidade = request.form["cidade"]
-        adicionar_usuario(nome, idade, cidade)
+        numero = request.form["numero"]
+        estado = request.form["estado"]
+        
+        adicionar_usuario(nome, idade, rua, cidade, numero, estado)  # Corrigido para passar todos os argumentos necessários
         flash("Usuário adicionado com sucesso!", "success")
         return redirect(url_for("index"))
     return render_template("add_user.html")
@@ -29,12 +32,14 @@ def edit_user(id):
     if request.method == "POST":
         nome = request.form["nome"]
         idade = int(request.form["idade"])
+        rua = request.form["rua"]  
         cidade = request.form["cidade"]
-        editar_usuario(id, nome, idade, cidade)
+        numero = request.form["numero"]
+        estado = request.form["estado"]
+        editar_usuario(id, nome, idade, rua, cidade, numero, estado)   
         flash("Usuário atualizado com sucesso!", "success")
         return redirect(url_for("index"))
     return render_template("edit_user.html", user=user)
-
 
 @app.route("/delete_user/<int:id>", methods=["GET"])
 def delete_user(id):
