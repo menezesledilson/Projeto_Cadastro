@@ -1,0 +1,40 @@
+<!-- index.html -->
+{% extends 'layout.html' %}
+{% block body %}
+<div class="row">
+<h3 class='text-center text-muted mb-3'></h3>
+<p class="text-right"><a href="{{url_for('add_user')}}" class="btn btn-success">+Novo Cadastro</a></p>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Idade</th>
+        <th scope="col">Rua</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Número</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.nome }}</td>
+        <td>{{ user.idade }}</td>
+        <td>{{ user.rua }}</td>
+        <td>{{ user.cidade }}</td>
+        <td>{{ user.numero }}</td>
+        <td>{{ user.estado }}</td>
+        <td>
+            <a href="{{url_for('edit_user', id=user.id)}}" class="btn btn-primary">Editar</a>
+            <a href="{{url_for('delete_user', id=user.id)}}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja apagar?')">Deletar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
